@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Exercise Selection -->
+    <Spinner
+        android:id="@+id/spinnerExercise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:prompt="@string/select_exercise_prompt"/>
+
+    <!-- Workout Details -->
+    <EditText
+        android:id="@+id/editTextDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_duration_hint"
+        android:inputType="numberDecimal"
+        android:layout_below="@id/spinnerExercise"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Button to Save Workout -->
+    <Button
+        android:id="@+id/btnSaveWorkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save_workout"
+        android:layout_below="@id/editTextDuration"
+        android:layout_marginTop="16dp"
+        android:onClick="saveWorkout"/>
+
+</LinearLayout>
