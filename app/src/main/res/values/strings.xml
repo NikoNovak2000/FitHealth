@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">FitHealth</string>
     <string name="select_exercise_prompt">Select an Exercise</string>
-    <string name="enter_duration_hint">Enter Duration</string>
+    <string name="enter_duration_hint">Enter duration in minutes</string>
     <string name="save_workout">Save Workout</string>
 </resources>

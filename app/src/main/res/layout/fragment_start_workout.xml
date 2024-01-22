@@ -22,6 +22,13 @@
         android:layout_below="@id/spinnerExercise"
         android:layout_marginTop="16dp"/>
 
+    <EditText
+        android:id="@+id/editTextGoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Goal Duration in minutes"
+        android:inputType="numberDecimal"/>
+
     <!-- Button to Save Workout -->
     <Button
         android:id="@+id/btnSaveWorkout"
@@ -31,5 +38,7 @@
         android:layout_below="@id/editTextDuration"
         android:layout_marginTop="16dp"
         android:onClick="saveWorkout"/>
+
+
 
 </LinearLayout>

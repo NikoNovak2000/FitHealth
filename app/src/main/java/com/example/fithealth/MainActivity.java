@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void viewWorkouts(View view) {
-        // Create a new instance of the fragment
+        // Create a new instance of the fragment workoutHistory
         WorkoutHistoryFragment workoutHistoryFragment = new WorkoutHistoryFragment();
 
         getSupportFragmentManager().beginTransaction()
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
     public void startNewWorkout(View view) {
-        // Create a new instance of the fragment
+        // Create a new instance of the fragment startWorkout
         StartWorkoutFragment startWorkoutFragment = new StartWorkoutFragment();
 
         getSupportFragmentManager().beginTransaction()
