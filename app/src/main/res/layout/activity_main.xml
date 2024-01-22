@@ -27,19 +27,19 @@
 
     <!-- Button to Start a New Workout -->
     <Button
-        android:id="@+id/btnStartWorkout"
+        android:id="@+id/btnSavePreviousWorkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start New Workout"
+        android:text="Save Previous Workout"
         android:layout_below="@id/btnViewWorkouts"
         android:layout_marginTop="16dp"
-        android:onClick="startNewWorkout"/>
+        android:onClick="savePreviousWorkout"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/btnStartWorkout"
+        android:layout_below="@id/btnSavePreviousWorkout"
         android:layout_marginTop="16dp"/>
 
 </LinearLayout>

@@ -23,12 +23,12 @@ public class MainActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
-    public void startNewWorkout(View view) {
+    public void savePreviousWorkout(View view) {
         // Create a new instance of the fragment startWorkout
-        StartWorkoutFragment startWorkoutFragment = new StartWorkoutFragment();
+        SavePreviousWorkoutFragment savePreviousWorkoutFragment = new SavePreviousWorkoutFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, startWorkoutFragment)
+                .replace(R.id.fragment_container, savePreviousWorkoutFragment)
                 .addToBackStack(null)
                 .commit();
     }

@@ -5,10 +5,10 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textViewExercise"
+        android:id="@+id/textViewWorkout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Exercise: " />
+        android:text="Workout: " />
 
     <TextView
         android:id="@+id/textViewDuration"
@@ -21,5 +21,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Goal: " />
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Message"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
 
 </LinearLayout>

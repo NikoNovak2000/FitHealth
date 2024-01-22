@@ -22,12 +22,35 @@
         android:layout_below="@id/spinnerExercise"
         android:layout_marginTop="16dp"/>
 
+    <!-- Goal Duration Detalis -->
     <EditText
         android:id="@+id/editTextGoal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Goal Duration in minutes"
         android:inputType="numberDecimal"/>
+
+    <!-- Instruction Text -->
+    <TextView
+        android:id="@+id/textViewInstruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To select a different date, press the button below:"
+        android:layout_below="@id/editTextGoal"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Add Select Date Button -->
+    <Button
+        android:id="@+id/btnSelectDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Date"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="145dp"/>
 
     <!-- Button to Save Workout -->
     <Button
@@ -36,7 +59,7 @@
         android:layout_height="wrap_content"
         android:text="@string/save_workout"
         android:layout_below="@id/editTextDuration"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:onClick="saveWorkout"/>
 
 
