@@ -91,18 +91,20 @@ public class WorkoutHistoryFragment extends Fragment {
         new ClearWorkoutHistoryAsyncTask().execute();
     }
 
-    private class ClearWorkoutHistoryAsyncTask extends AsyncTask<Void, Void, Void> {
+    private class ClearWorkoutHistoryAsyncTask extends AsyncTask<Void, Void, List<WorkoutEntity>> {
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected List<WorkoutEntity> doInBackground(Void... voids) {
             // Clear workout history from the database
             MyApplication.getWorkoutDatabase().workoutDataAccessObject().clearAllWorkouts();
-            return null;
+            // Fetch the updated workout data after clearing
+            return MyApplication.getWorkoutDatabase().workoutDataAccessObject().getAllWorkouts();
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            // Notify the user that the workout history has been cleared
-            adapter.setWorkoutList(new ArrayList<>());
+        protected void onPostExecute(List<WorkoutEntity> workoutData) {
+            Log.d("ClearWorkoutHistory", "Workout history cleared");
+            // Update the adapter with the fetched workout data
+            adapter.setWorkoutList(workoutData);
             adapter.notifyDataSetChanged();
         }
     }

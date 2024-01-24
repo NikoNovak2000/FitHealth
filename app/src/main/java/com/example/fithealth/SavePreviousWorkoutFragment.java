@@ -25,8 +25,12 @@ import java.util.Arrays;
 
 public class SavePreviousWorkoutFragment extends Fragment {
     private Spinner exerciseSpinner;
-    private EditText editTextDuration;
-    private EditText editTextGoal;
+    private EditText editTextDurationHours;
+    private EditText editTextDurationMinutes;
+    private EditText editTextDurationSeconds;
+    private EditText editTextGoalHours;
+    private EditText editTextGoalMinutes;
+    private EditText editTextGoalSeconds;
     private Button btnSelectDate;
 
     private String selectedDate; // Store the selected date
@@ -36,8 +40,12 @@ public class SavePreviousWorkoutFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_save_previous_workout, container, false);
 
         exerciseSpinner = rootView.findViewById(R.id.spinnerExercise);
-        editTextDuration = rootView.findViewById(R.id.editTextDuration);
-        editTextGoal = rootView.findViewById(R.id.editTextGoal);
+        editTextDurationHours = rootView.findViewById(R.id.editTextDurationHours);
+        editTextDurationMinutes = rootView.findViewById(R.id.editTextDurationMinutes);
+        editTextDurationSeconds = rootView.findViewById(R.id.editTextDurationSeconds);
+        editTextGoalHours = rootView.findViewById(R.id.editTextGoalHours);
+        editTextGoalMinutes = rootView.findViewById(R.id.editTextGoalMinutes);
+        editTextGoalSeconds = rootView.findViewById(R.id.editTextGoalSeconds);
         btnSelectDate = rootView.findViewById(R.id.btnSelectDate);
 
         // Initialize exercise spinner
@@ -76,23 +84,36 @@ public class SavePreviousWorkoutFragment extends Fragment {
     private void saveWorkout() {
         // Get selected exercise and workout details
         String selectedExercise = exerciseSpinner.getSelectedItem().toString();
-        String duration = editTextDuration.getText().toString();
-        String goal = editTextGoal.getText().toString();
+        String durationHours = editTextDurationHours.getText().toString();
+        String durationMinutes = editTextDurationMinutes.getText().toString();
+        String durationSeconds = editTextDurationSeconds.getText().toString();
+        String goalHours = editTextGoalHours.getText().toString();
+        String goalMinutes = editTextGoalMinutes.getText().toString();
+        String goalSeconds = editTextGoalSeconds.getText().toString();
 
         // Validate input for exercise
-        if (TextUtils.isEmpty(selectedExercise) || TextUtils.isEmpty(duration)) {
+        if (TextUtils.isEmpty(selectedExercise) || TextUtils.isEmpty(durationHours) || TextUtils.isEmpty(durationMinutes) || TextUtils.isEmpty(durationSeconds)) {
             Toast.makeText(requireContext(), "Please fill in all details", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Validate input for goal exercise
-        if (TextUtils.isEmpty(goal)) {
-            Toast.makeText(requireContext(), "Please enter a goal", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(goalHours) || TextUtils.isEmpty(goalMinutes) || TextUtils.isEmpty(goalSeconds)) {
+            Toast.makeText(requireContext(), "Please enter a goal duration", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Create a new instance of WorkoutEntity with user-entered details and the selected date
-        WorkoutEntity workoutEntity = new WorkoutEntity(selectedExercise, duration, goal, selectedDate);
+        WorkoutEntity workoutEntity = new WorkoutEntity(
+                selectedExercise,
+                Integer.parseInt(durationHours),
+                Integer.parseInt(durationMinutes),
+                Integer.parseInt(durationSeconds),
+                Integer.parseInt(goalHours),
+                Integer.parseInt(goalMinutes),
+                Integer.parseInt(goalSeconds),
+                selectedDate
+        );
 
         // Save the workout to the database asynchronously using AsyncTask
         new SaveWorkoutAsyncTask().execute(workoutEntity);
@@ -101,35 +122,31 @@ public class SavePreviousWorkoutFragment extends Fragment {
         String toastMessage = "Workout Saved:\n" + workoutEntity.toString();
 
         // Compare actual duration with goal duration
-        if (compareDurationWithGoal(duration, goal)) {
+        if (compareDurationWithGoal(workoutEntity.getDurationInSeconds(), workoutEntity)) {
             toastMessage += "\nYou are doing a great job!";
         } else {
             toastMessage += "\nKeep on pushing!";
         }
 
         Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show();
-    }
 
-    // Helper method to compare actual duration with goal duration
-    private boolean compareDurationWithGoal(String actualDuration, String goalDuration) {
-        try {
-            // Convert duration strings to integers for comparison
-            int actual = Integer.parseInt(actualDuration);
-            int goal = Integer.parseInt(goalDuration);
-
-            // Compare the two durations
-            return actual >= goal;
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            return false; // Handle invalid input gracefully
+        // Update the workout history UI
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).viewWorkouts(null);
         }
     }
 
+    // Helper method to compare actual duration with goal duration
+    private boolean compareDurationWithGoal(int actualDurationSeconds, WorkoutEntity workoutEntity) {
+        int goalSeconds = workoutEntity.getGoalInSeconds();
+
+        // Compare the two durations
+        return actualDurationSeconds >= goalSeconds;
+    }
+
     private String getCurrentDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String currentDate = dateFormat.format(new Date());
-        Log.d("DateDebug", "Current Date: " + currentDate);
-        return currentDate;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(new Date());
     }
 
     // Method to show the DatePickerDialog

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:anodrid="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,42 +13,22 @@
         android:layout_marginBottom="16dp"
         android:prompt="@string/select_exercise_prompt"/>
 
-    <!-- Workout Details -->
-    <LinearLayout
+    <!-- Timer -->
+    <Chronometer
+        android:id="@+id/chronometer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/editTextDurationHours"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="Hours"
-            android:inputType="number"/>
-
-        <EditText
-            android:id="@+id/editTextDurationMinutes"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="Minutes"
-            android:inputType="number"/>
-
-        <EditText
-            android:id="@+id/editTextDurationSeconds"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="Seconds"
-            android:inputType="number"/>
-    </LinearLayout>
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="6dp"
+        android:format="%s"
+        android:layout_gravity="center_horizontal" />
 
     <!-- Goal Duration Details -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
 
         <EditText
             android:id="@+id/editTextGoalHours"
@@ -74,27 +55,13 @@
             android:inputType="number"/>
     </LinearLayout>
 
-    <!-- Instruction Text -->
-    <TextView
-        android:id="@+id/textViewInstruction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="To select a different date, press the button below:"
-        android:layout_below="@id/editTextGoalSeconds"
-        android:textColor="#000000"
-        android:textSize="18dp"
-        android:layout_marginTop="16dp"/>
-
-    <!-- Add Select Date Button -->
+    <!-- Button to Start/Stop Timer -->
     <Button
-        android:id="@+id/btnSelectDate"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnStartStopTimer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Date"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="145dp"/>
+        android:text="Start Timer"
+        android:layout_marginTop="50dp" />
 
     <!-- Button to Save Workout -->
     <Button
@@ -102,8 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/save_workout"
-        android:layout_below="@id/btnSelectDate"
-        android:layout_marginTop="10dp"
-        android:onClick="saveWorkout"/>
+        android:layout_below="@id/btnStartStopTimer"
+        android:layout_marginTop="30dp" />
 
 </LinearLayout>

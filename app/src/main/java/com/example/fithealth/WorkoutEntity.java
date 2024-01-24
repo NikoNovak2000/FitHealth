@@ -8,14 +8,23 @@ public class WorkoutEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String exercise;
-    private String duration;
-    private String goal;
+    private int durationHours;
+    private int durationMinutes;
+    private int durationSeconds;
+    private int goalHours;
+    private int goalMinutes;
+    private int goalSeconds;
     private String date;
 
-    public WorkoutEntity(String exercise, String duration, String goal, String date) {
+    public WorkoutEntity(String exercise, int durationHours, int durationMinutes, int durationSeconds,
+                         int goalHours, int goalMinutes, int goalSeconds, String date) {
         this.exercise = exercise;
-        this.duration = duration;
-        this.goal = goal;
+        this.durationHours = durationHours;
+        this.durationMinutes = durationMinutes;
+        this.durationSeconds = durationSeconds;
+        this.goalHours = goalHours;
+        this.goalMinutes = goalMinutes;
+        this.goalSeconds = goalSeconds;
         this.date = date;
     }
 
@@ -37,20 +46,52 @@ public class WorkoutEntity {
         this.exercise = exercise;
     }
 
-    public String getDuration() {
-        return duration;
+    public int getDurationHours() {
+        return durationHours;
     }
 
-    public void setDuration(String duration) {
-        this.duration = duration;
+    public void setDurationHours(int durationHours) {
+        this.durationHours = durationHours;
     }
 
-    public String getGoal() {
-        return goal;
+    public int getDurationMinutes() {
+        return durationMinutes;
     }
 
-    public void setGoal(String goal) {
-        this.goal = goal;
+    public void setDurationMinutes(int durationMinutes) {
+        this.durationMinutes = durationMinutes;
+    }
+
+    public int getDurationSeconds() {
+        return durationSeconds;
+    }
+
+    public void setDurationSeconds(int durationSeconds) {
+        this.durationSeconds = durationSeconds;
+    }
+
+    public int getGoalHours() {
+        return goalHours;
+    }
+
+    public void setGoalHours(int goalHours) {
+        this.goalHours = goalHours;
+    }
+
+    public int getGoalMinutes() {
+        return goalMinutes;
+    }
+
+    public void setGoalMinutes(int goalMinutes) {
+        this.goalMinutes = goalMinutes;
+    }
+
+    public int getGoalSeconds() {
+        return goalSeconds;
+    }
+
+    public void setGoalSeconds(int goalSeconds) {
+        this.goalSeconds = goalSeconds;
     }
 
     public String getDate() {
@@ -61,11 +102,21 @@ public class WorkoutEntity {
         this.date = date;
     }
 
+    // Helper method to get goal duration in seconds
+    public int getGoalInSeconds() {
+        return goalHours * 3600 + goalMinutes * 60 + goalSeconds;
+    }
+
+    // Helper method to get workout duration in seconds
+    public int getDurationInSeconds() {
+        return durationHours * 3600 + durationMinutes * 60 + durationSeconds;
+    }
+
     @Override
     public String toString() {
         return "Workout: " + exercise +
-                "\nDuration: " + duration +
-                "\nGoal: " + goal +
+                "\nDuration: " + durationHours + "h " + durationMinutes + "m " + durationSeconds + "s" +
+                "\nGoal: " + goalHours + "h " + goalMinutes + "m " + goalSeconds + "s" +
                 "\nDate: " + date;
     }
 }

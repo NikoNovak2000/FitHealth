@@ -10,20 +10,20 @@
         android:id="@+id/textViewHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Workout History"
+        android:text="Workouts"
         android:textSize="24sp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Button to View Workouts -->
+    <!-- Button to Track a New Workout -->
     <Button
-        android:id="@+id/btnViewWorkouts"
+        android:id="@+id/btnTrackWorkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View Workouts"
-        android:layout_below="@id/textViewHeader"
+        android:text="Track Workout"
+        android:layout_above="@id/btnSavePreviousWorkout"
         android:layout_marginTop="16dp"
-        android:onClick="viewWorkouts"/>
+        android:onClick="trackWorkout"/>
 
     <!-- Button to Start a New Workout -->
     <Button
@@ -31,15 +31,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save Previous Workout"
-        android:layout_below="@id/btnViewWorkouts"
+        android:layout_below="@id/textViewHeader"
         android:layout_marginTop="16dp"
         android:onClick="savePreviousWorkout"/>
+
+    <!-- Button to View Workouts -->
+    <Button
+        android:id="@+id/btnViewWorkouts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Workouts"
+        android:layout_below="@id/btnSavePreviousWorkout"
+        android:layout_marginTop="16dp"
+        android:onClick="viewWorkouts"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/btnSavePreviousWorkout"
+        android:layout_below="@id/btnViewWorkouts"
         android:layout_marginTop="16dp"/>
 
 </LinearLayout>

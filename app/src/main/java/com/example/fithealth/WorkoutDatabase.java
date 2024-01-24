@@ -7,21 +7,20 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {WorkoutEntity.class}, version = 1)
+@Database(entities = {WorkoutEntity.class}, version = 3, exportSchema = false)
 public abstract class WorkoutDatabase extends RoomDatabase {
+    public static final Migration MIGRATION_1_2 = new Migration_1_2();
     private static WorkoutDatabase instance;
-
     public abstract WorkoutDataAccessObject workoutDataAccessObject();
-
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
         }
-
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
@@ -29,7 +28,6 @@ public abstract class WorkoutDatabase extends RoomDatabase {
             Log.d("WorkoutDatabase", "Database has been opened!");
         }
     };
-
     // Create or retrieve an instance of WorkoutDatabase, if instance null create instance, if not retrieve
     public static synchronized WorkoutDatabase getInstance(Context context) {
         if (instance == null) {
