@@ -5,23 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Timer -->
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="20dp"
+        android:format="%s"
+        android:layout_gravity="center_horizontal" />
+
     <!-- Exercise Selection -->
     <Spinner
         android:id="@+id/spinnerExercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:layout_marginTop="60dp"
         android:prompt="@string/select_exercise_prompt"/>
 
-    <!-- Timer -->
-    <Chronometer
-        android:id="@+id/chronometer"
-        android:layout_width="match_parent"
+    <!-- Instruction Text -->
+    <TextView
+        android:id="@+id/textViewInstruction"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:text="Enter your Goal duration below:"
         android:layout_marginLeft="6dp"
-        android:format="%s"
-        android:layout_gravity="center_horizontal" />
+        android:textColor="#000000"
+        android:textSize="18dp"
+        android:layout_marginTop="16dp"/>
 
     <!-- Goal Duration Details -->
     <LinearLayout
@@ -61,7 +73,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start Timer"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:background="#87CEFA"
+        android:textColor="#000000"
+        android:padding="10dp"/>
 
     <!-- Button to Save Workout -->
     <Button
@@ -70,6 +85,8 @@
         android:layout_height="wrap_content"
         android:text="@string/save_workout"
         android:layout_below="@id/btnStartStopTimer"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        android:background="#E6E6FA"
+        android:textColor="#4B0082"/>
 
 </LinearLayout>

@@ -70,7 +70,7 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
 
             textViewDuration.setText("Duration: " + formattedDuration);
 
-            textViewGoal.setText("Goal duration: " + formatGoalDuration(workoutEntity) + " min");
+            textViewGoal.setText("Goal duration: " + formatGoalDuration(workoutEntity));
             textViewDate.setText("Date: " + formatDate(workoutEntity.getDate()));
 
             // Add appropriate message based on duration and goal

@@ -10,10 +10,13 @@
         android:id="@+id/textViewHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Workouts"
-        android:textSize="24sp"
+        android:text="Log your Workouts"
+        android:textColor="#000000"
+        android:textSize="14pt"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"/>
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="6dp"/>
 
     <!-- Button to Track a New Workout -->
     <Button
@@ -23,7 +26,9 @@
         android:text="Track Workout"
         android:layout_above="@id/btnSavePreviousWorkout"
         android:layout_marginTop="16dp"
-        android:onClick="trackWorkout"/>
+        android:onClick="trackWorkout"
+        android:background="#E6E6FA"
+        android:textColor="#4B0082"/>
 
     <!-- Button to Start a New Workout -->
     <Button
@@ -33,7 +38,9 @@
         android:text="Save Previous Workout"
         android:layout_below="@id/textViewHeader"
         android:layout_marginTop="16dp"
-        android:onClick="savePreviousWorkout"/>
+        android:onClick="savePreviousWorkout"
+        android:background="#E6E6FA"
+        android:textColor="#4B0082"/>
 
     <!-- Button to View Workouts -->
     <Button
@@ -43,7 +50,9 @@
         android:text="View Workouts"
         android:layout_below="@id/btnSavePreviousWorkout"
         android:layout_marginTop="16dp"
-        android:onClick="viewWorkouts"/>
+        android:onClick="viewWorkouts"
+        android:background="#E6E6FA"
+        android:textColor="#4B0082"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"
