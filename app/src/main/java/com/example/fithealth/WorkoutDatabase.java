@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {WorkoutEntity.class}, version = 3, exportSchema = false)
+@Database(entities = {WorkoutEntity.class}, version = 5, exportSchema = false)
 public abstract class WorkoutDatabase extends RoomDatabase {
     public static final Migration MIGRATION_1_2 = new Migration_1_2();
     private static WorkoutDatabase instance;

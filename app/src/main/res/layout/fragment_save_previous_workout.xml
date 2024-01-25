@@ -122,6 +122,16 @@
         android:textColor="#000000"
         android:padding="10dp"/>
 
+    <TextView
+        android:id="@+id/totalDistanceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Distance: N/A"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
     <!-- Button to Save Workout -->
     <Button
         android:id="@+id/btnSaveWorkout"
@@ -129,7 +139,7 @@
         android:layout_height="wrap_content"
         android:text="@string/save_workout"
         android:layout_below="@id/btnSelectDate"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="13dp"
         android:onClick="saveWorkout"
         android:background="#E6E6FA"
         android:textColor="#4B0082"/>

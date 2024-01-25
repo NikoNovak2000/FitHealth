@@ -59,7 +59,6 @@ public class WorkoutHistoryFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<WorkoutEntity> workoutData) {
-            Log.d("FetchWorkoutData", "Updating adapter with fetched data");
             // Update the adapter with the fetched workout data
             adapter.setWorkoutList(workoutData);
             adapter.notifyDataSetChanged();

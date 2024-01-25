@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class SavePreviousWorkoutFragment extends Fragment {
     private Spinner exerciseSpinner;
@@ -32,6 +34,7 @@ public class SavePreviousWorkoutFragment extends Fragment {
     private EditText editTextGoalMinutes;
     private EditText editTextGoalSeconds;
     private Button btnSelectDate;
+    private TextView totalDistanceTextView;
 
     private String selectedDate; // Store the selected date
 
@@ -47,6 +50,7 @@ public class SavePreviousWorkoutFragment extends Fragment {
         editTextGoalMinutes = rootView.findViewById(R.id.editTextGoalMinutes);
         editTextGoalSeconds = rootView.findViewById(R.id.editTextGoalSeconds);
         btnSelectDate = rootView.findViewById(R.id.btnSelectDate);
+        totalDistanceTextView = rootView.findViewById(R.id.totalDistanceTextView); //
 
         // Initialize exercise spinner
         ArrayAdapter<String> exerciseAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, getExerciseList());
@@ -112,7 +116,9 @@ public class SavePreviousWorkoutFragment extends Fragment {
                 Integer.parseInt(goalHours),
                 Integer.parseInt(goalMinutes),
                 Integer.parseInt(goalSeconds),
-                selectedDate
+                selectedDate,
+                0.0,
+                0.0
         );
 
         // Save the workout to the database asynchronously using AsyncTask
@@ -170,6 +176,11 @@ public class SavePreviousWorkoutFragment extends Fragment {
         );
 
         datePickerDialog.show();
+    }
+    // Additional method to update totalDistance TextView
+    private void updateTotalDistance(double distance) {
+        double totalDistance = Double.parseDouble(totalDistanceTextView.getText().toString()) + distance;
+        totalDistanceTextView.setText(String.format(Locale.getDefault(), "%.2f km", totalDistance / 1000));
     }
 
     private static class SaveWorkoutAsyncTask extends AsyncTask<WorkoutEntity, Void, Void> {

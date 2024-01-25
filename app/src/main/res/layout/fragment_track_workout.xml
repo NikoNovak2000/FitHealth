@@ -15,13 +15,39 @@
         android:format="%s"
         android:layout_gravity="center_horizontal" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+    <TextView
+        android:id="@+id/totalDistanceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Distance: 0.00 km"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="12dp"/>
+
+        <TextView
+            android:id="@+id/averageSpeedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Avg.Speed: 0.00 km/h"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="60dp"/>
+
+    </LinearLayout>
     <!-- Exercise Selection -->
     <Spinner
         android:id="@+id/spinnerExercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:prompt="@string/select_exercise_prompt"/>
 
     <!-- Instruction Text -->

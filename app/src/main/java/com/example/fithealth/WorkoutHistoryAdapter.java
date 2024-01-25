@@ -1,4 +1,5 @@
 package com.example.fithealth;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,12 +52,16 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
         private TextView textViewGoal;
         private TextView textViewDate;
         private TextView textViewMessage;
+        private TextView textViewTotal;
+        private TextView textViewAverage;
 
         public WorkoutViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewWorkout = itemView.findViewById(R.id.textViewWorkout);
             textViewDuration = itemView.findViewById(R.id.textViewDuration);
             textViewGoal = itemView.findViewById(R.id.textViewGoal);
+            textViewTotal = itemView.findViewById(R.id.textViewTotal);
+            textViewAverage = itemView.findViewById(R.id.textViewAverage);
             textViewDate = itemView.findViewById(R.id.textViewDate);
             textViewMessage = itemView.findViewById(R.id.textViewMessage);
         }
@@ -64,13 +69,16 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
         public void bind(WorkoutEntity workoutEntity, WorkoutHistoryAdapter adapter) {
             textViewWorkout.setText("Workout: " + workoutEntity.getExercise());
 
-            // Pass duration as a long
             long actualDuration = workoutEntity.getDurationInSeconds();
             String formattedDuration = formatDuration(actualDuration);
-
             textViewDuration.setText("Duration: " + formattedDuration);
-
             textViewGoal.setText("Goal duration: " + formatGoalDuration(workoutEntity));
+            // Updated code to include formatted total distance
+            String formattedTotalDistance = String.format(Locale.getDefault(), "Total Distance: %.3f km", workoutEntity.getTotalDistance() / 1000.0);
+            textViewTotal.setText(formattedTotalDistance);
+            double averageSpeed = workoutEntity.getAverageSpeed();
+            // Display average speed in km/h
+            textViewAverage.setText("Average speed: " + (averageSpeed > 0 ? workoutEntity.getFormattedAverageSpeed() : "N/A"));
             textViewDate.setText("Date: " + formatDate(workoutEntity.getDate()));
 
             // Add appropriate message based on duration and goal

@@ -15,9 +15,11 @@ public class WorkoutEntity {
     private int goalMinutes;
     private int goalSeconds;
     private String date;
+    private double totalDistance; // Change the type to double
+    private double averageSpeed;
 
     public WorkoutEntity(String exercise, int durationHours, int durationMinutes, int durationSeconds,
-                         int goalHours, int goalMinutes, int goalSeconds, String date) {
+                         int goalHours, int goalMinutes, int goalSeconds, String date, double totalDistance, double averageSpeed) {
         this.exercise = exercise;
         this.durationHours = durationHours;
         this.durationMinutes = durationMinutes;
@@ -26,6 +28,8 @@ public class WorkoutEntity {
         this.goalMinutes = goalMinutes;
         this.goalSeconds = goalSeconds;
         this.date = date;
+        this.totalDistance = totalDistance;
+        this.averageSpeed = averageSpeed;
     }
 
     // Constructors, getters, and setters
@@ -102,6 +106,14 @@ public class WorkoutEntity {
         this.date = date;
     }
 
+    public double getTotalDistance() {
+        return totalDistance;
+    }
+
+    public void setTotalDistance(double totalDistance) {
+        this.totalDistance = totalDistance;
+    }
+
     // Helper method to get goal duration in seconds
     public int getGoalInSeconds() {
         return goalHours * 3600 + goalMinutes * 60 + goalSeconds;
@@ -112,11 +124,26 @@ public class WorkoutEntity {
         return durationHours * 3600 + durationMinutes * 60 + durationSeconds;
     }
 
+    public double getAverageSpeed() {
+        return averageSpeed;
+    }
+
+    public void setAverageSpeed(double averageSpeed) {
+        this.averageSpeed = averageSpeed;
+    }
+
+    public String getFormattedAverageSpeed() {
+        // Format average speed to show one decimal place
+        return String.format("%.2f km/h", averageSpeed);
+    }
+
     @Override
     public String toString() {
         return "Workout: " + exercise +
                 "\nDuration: " + durationHours + "h " + durationMinutes + "m " + durationSeconds + "s" +
                 "\nGoal: " + goalHours + "h " + goalMinutes + "m " + goalSeconds + "s" +
-                "\nDate: " + date;
+                "\nDate: " + date +
+                "\nTotal Distance: " + totalDistance + " m" +
+                "\n Average Speed: " + getFormattedAverageSpeed();
     }
 }
