@@ -15,9 +15,10 @@ public class WorkoutEntity {
     private int goalMinutes;
     private int goalSeconds;
     private String date;
-    private double totalDistance; // Change the type to double
+    private double totalDistance;
     private double averageSpeed;
 
+    // Initializing the WorkoutEntity object with the provided values for each attribute
     public WorkoutEntity(String exercise, int durationHours, int durationMinutes, int durationSeconds,
                          int goalHours, int goalMinutes, int goalSeconds, String date, double totalDistance, double averageSpeed) {
         this.exercise = exercise;
@@ -114,6 +115,14 @@ public class WorkoutEntity {
         this.totalDistance = totalDistance;
     }
 
+    public double getAverageSpeed() {
+        return averageSpeed;
+    }
+
+    public void setAverageSpeed(double averageSpeed) {
+        this.averageSpeed = averageSpeed;
+    }
+
     // Helper method to get goal duration in seconds
     public int getGoalInSeconds() {
         return goalHours * 3600 + goalMinutes * 60 + goalSeconds;
@@ -122,14 +131,6 @@ public class WorkoutEntity {
     // Helper method to get workout duration in seconds
     public int getDurationInSeconds() {
         return durationHours * 3600 + durationMinutes * 60 + durationSeconds;
-    }
-
-    public double getAverageSpeed() {
-        return averageSpeed;
-    }
-
-    public void setAverageSpeed(double averageSpeed) {
-        this.averageSpeed = averageSpeed;
     }
 
     public String getFormattedAverageSpeed() {

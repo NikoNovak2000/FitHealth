@@ -37,12 +37,11 @@ public class WorkoutHistoryFragment extends Fragment {
         // Fetch workout data from the database asynchronously
         new FetchWorkoutDataAsyncTask().execute();
 
-        // Find Clear Button
+        // Set click listener for invoking the showClearHistoryConfirmationDialog method
         Button btnClearHistory = rootView.findViewById(R.id.btnClearHistory);
         btnClearHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Call method to show confirmation dialog
                 showClearHistoryConfirmationDialog();
             }
         });
@@ -50,6 +49,7 @@ public class WorkoutHistoryFragment extends Fragment {
         return rootView;
     }
 
+    // Fetch workout data from the db in background
     private class FetchWorkoutDataAsyncTask extends AsyncTask<Void, Void, List<WorkoutEntity>> {
         @Override
         protected List<WorkoutEntity> doInBackground(Void... voids) {
@@ -57,6 +57,7 @@ public class WorkoutHistoryFragment extends Fragment {
             return MyApplication.getWorkoutDatabase().workoutDataAccessObject().getAllWorkouts();
         }
 
+        // Update WorkoutHistoryAdapter with fetched workout data and notify the adapter about data being changed
         @Override
         protected void onPostExecute(List<WorkoutEntity> workoutData) {
             // Update the adapter with the fetched workout data
@@ -65,6 +66,7 @@ public class WorkoutHistoryFragment extends Fragment {
         }
     }
 
+    // Method displays a confirmation dialog asking the user to confirm clearing the history
     private void showClearHistoryConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Confirm Clear History");
@@ -85,11 +87,13 @@ public class WorkoutHistoryFragment extends Fragment {
         builder.show();
     }
 
+    // Method initiates the process of clearing the workout history by showing the confirmation dialog
     private void clearWorkoutHistory() {
         // Clear workout history (delete all records from the database)
         new ClearWorkoutHistoryAsyncTask().execute();
     }
 
+    // Clears the workout history from the database and fetches the updated workout data
     private class ClearWorkoutHistoryAsyncTask extends AsyncTask<Void, Void, List<WorkoutEntity>> {
         @Override
         protected List<WorkoutEntity> doInBackground(Void... voids) {
@@ -99,6 +103,7 @@ public class WorkoutHistoryFragment extends Fragment {
             return MyApplication.getWorkoutDatabase().workoutDataAccessObject().getAllWorkouts();
         }
 
+        // Log msg, updates the WorkoutHistoryAdapter with the updated workout data, notify the adapter
         @Override
         protected void onPostExecute(List<WorkoutEntity> workoutData) {
             Log.d("ClearWorkoutHistory", "Workout history cleared");

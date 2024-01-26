@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,15 +33,19 @@ public class SavePreviousWorkoutFragment extends Fragment {
     private EditText editTextGoalMinutes;
     private EditText editTextGoalSeconds;
     private Button btnSelectDate;
+    private String selectedDate; // To store the selected date
     private TextView totalDistanceTextView;
-
-    private String selectedDate; // Store the selected date
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_save_previous_workout, container, false);
 
+        // Find references to widget in the layout by its unique identifier
         exerciseSpinner = rootView.findViewById(R.id.spinnerExercise);
+        // Initialize exercise spinner
+        ArrayAdapter<String> exerciseAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, getExerciseList());
+        exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        exerciseSpinner.setAdapter(exerciseAdapter);
         editTextDurationHours = rootView.findViewById(R.id.editTextDurationHours);
         editTextDurationMinutes = rootView.findViewById(R.id.editTextDurationMinutes);
         editTextDurationSeconds = rootView.findViewById(R.id.editTextDurationSeconds);
@@ -50,14 +53,9 @@ public class SavePreviousWorkoutFragment extends Fragment {
         editTextGoalMinutes = rootView.findViewById(R.id.editTextGoalMinutes);
         editTextGoalSeconds = rootView.findViewById(R.id.editTextGoalSeconds);
         btnSelectDate = rootView.findViewById(R.id.btnSelectDate);
-        totalDistanceTextView = rootView.findViewById(R.id.totalDistanceTextView); //
+        totalDistanceTextView = rootView.findViewById(R.id.totalDistanceTextView);
 
-        // Initialize exercise spinner
-        ArrayAdapter<String> exerciseAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, getExerciseList());
-        exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        exerciseSpinner.setAdapter(exerciseAdapter);
-
-        // Set click listener for the save button
+        // Set click listener for invoking the saveWorkout method
         Button btnSaveWorkout = rootView.findViewById(R.id.btnSaveWorkout);
         btnSaveWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +64,7 @@ public class SavePreviousWorkoutFragment extends Fragment {
             }
         });
 
-        // Set click listener for selecting date
+        // Set click listener for invoking showDatePickerDialog method
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,12 +79,14 @@ public class SavePreviousWorkoutFragment extends Fragment {
         return rootView;
     }
 
+    // Exercise list for the spinner
     private ArrayList<String> getExerciseList() {
         return new ArrayList<>(Arrays.asList("Walking", "Running", "Cycling", "Weight lifting", "Body exercises"));
     }
 
+    // Method is called when the user wants to save a workout
     private void saveWorkout() {
-        // Get selected exercise and workout details
+        // Get selected workout details
         String selectedExercise = exerciseSpinner.getSelectedItem().toString();
         String durationHours = editTextDurationHours.getText().toString();
         String durationMinutes = editTextDurationMinutes.getText().toString();
@@ -100,14 +100,13 @@ public class SavePreviousWorkoutFragment extends Fragment {
             Toast.makeText(requireContext(), "Please fill in all details", Toast.LENGTH_SHORT).show();
             return;
         }
-
         // Validate input for goal exercise
         if (TextUtils.isEmpty(goalHours) || TextUtils.isEmpty(goalMinutes) || TextUtils.isEmpty(goalSeconds)) {
             Toast.makeText(requireContext(), "Please enter a goal duration", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Create a new instance of WorkoutEntity with user-entered details and the selected date
+        // Create a new instance of WorkoutEntity with the user-entered details
         WorkoutEntity workoutEntity = new WorkoutEntity(
                 selectedExercise,
                 Integer.parseInt(durationHours),
@@ -124,7 +123,7 @@ public class SavePreviousWorkoutFragment extends Fragment {
         // Save the workout to the database asynchronously using AsyncTask
         new SaveWorkoutAsyncTask().execute(workoutEntity);
 
-        // Display a confirmation message with goal duration and performance message
+        // Display a confirmation message
         String toastMessage = "Workout Saved:\n" + workoutEntity.toString();
 
         // Compare actual duration with goal duration
@@ -133,7 +132,6 @@ public class SavePreviousWorkoutFragment extends Fragment {
         } else {
             toastMessage += "\nKeep on pushing!";
         }
-
         Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show();
 
         // Update the workout history UI
@@ -150,6 +148,7 @@ public class SavePreviousWorkoutFragment extends Fragment {
         return actualDurationSeconds >= goalSeconds;
     }
 
+    // Method to get current date in format yyyy-MM-dd
     private String getCurrentDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(new Date());
@@ -161,7 +160,6 @@ public class SavePreviousWorkoutFragment extends Fragment {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 requireContext(),
                 new DatePickerDialog.OnDateSetListener() {
@@ -174,18 +172,21 @@ public class SavePreviousWorkoutFragment extends Fragment {
                 },
                 year, month, day
         );
-
         datePickerDialog.show();
     }
-    // Additional method to update totalDistance TextView
+
+    // Method to update the totalDistance TextView with new total distance
     private void updateTotalDistance(double distance) {
         double totalDistance = Double.parseDouble(totalDistanceTextView.getText().toString()) + distance;
         totalDistanceTextView.setText(String.format(Locale.getDefault(), "%.2f km", totalDistance / 1000));
     }
 
+    // Method for saving a WorkoutEntity to the database in the background
     private static class SaveWorkoutAsyncTask extends AsyncTask<WorkoutEntity, Void, Void> {
         @Override
+        // Execute in the background in separate thread
         protected Void doInBackground(WorkoutEntity... workoutEntities) {
+            // Access WorkoutDatabase through MyApplication class and insert the WorkoutEntity in the database
             MyApplication.getWorkoutDatabase().workoutDataAccessObject().insert(workoutEntities[0]);
             return null;
         }

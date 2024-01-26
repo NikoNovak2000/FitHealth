@@ -3,12 +3,9 @@ package com.example.fithealth;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,15 +20,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    // Create a new instance of the fragment TrackWorkoutFragment
     private void loadTrackWorkoutFragment() {
+        TrackWorkoutFragment trackWorkoutFragment = new TrackWorkoutFragment();
+
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new TrackWorkoutFragment())
+                .replace(R.id.fragment_container, trackWorkoutFragment)
                 .addToBackStack(null)
                 .commit();
     }
-
+    // Create a new instance of the fragment startPreviousWorkout
     public void savePreviousWorkout(View view) {
-        // Create a new instance of the fragment startPreviousWorkout
         SavePreviousWorkoutFragment savePreviousWorkoutFragment = new SavePreviousWorkoutFragment();
 
         getSupportFragmentManager().beginTransaction()
@@ -39,9 +38,8 @@ public class MainActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
-
+    // Create a new instance of the fragment workoutHistory
     public void viewWorkouts(View view) {
-        // Create a new instance of the fragment workoutHistory
         WorkoutHistoryFragment workoutHistoryFragment = new WorkoutHistoryFragment();
 
         getSupportFragmentManager().beginTransaction()
@@ -49,5 +47,4 @@ public class MainActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
-
 }

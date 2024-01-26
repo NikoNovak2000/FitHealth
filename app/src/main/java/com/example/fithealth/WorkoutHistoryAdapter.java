@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+// Constructor initializes the adapter with a list of WorkoutEntity items
 public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAdapter.WorkoutViewHolder> {
     private List<WorkoutEntity> workoutList;
 
@@ -22,6 +23,7 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
         this.workoutList = workoutList;
     }
 
+    // Inflates the layout for each item in Recycler View, returns new instance of the WorkoutViewHolder
     @NonNull
     @Override
     public WorkoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,12 +31,14 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
         return new WorkoutViewHolder(view);
     }
 
+    // Binds data at the specified position to the WorkoutViewHolder
     @Override
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
         WorkoutEntity workoutEntity = workoutList.get(position);
         holder.bind(workoutEntity, this);
     }
 
+    // Returns number of items in the dataset, workoutList not null it returns its size, otherwise it returns 0
     @Override
     public int getItemCount() {
         return workoutList != null ? workoutList.size() : 0;
@@ -55,6 +59,7 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
         private TextView textViewTotal;
         private TextView textViewAverage;
 
+        // Constructor initializes the views for each item
         public WorkoutViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewWorkout = itemView.findViewById(R.id.textViewWorkout);
@@ -66,6 +71,7 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
             textViewMessage = itemView.findViewById(R.id.textViewMessage);
         }
 
+        // Method sets the data from WorkoutEntity to the views in the WorkoutViewHolder
         public void bind(WorkoutEntity workoutEntity, WorkoutHistoryAdapter adapter) {
             textViewWorkout.setText("Workout: " + workoutEntity.getExercise());
 
@@ -110,6 +116,7 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
                     workoutEntity.getGoalHours(), workoutEntity.getGoalMinutes(), workoutEntity.getGoalSeconds());
         }
 
+        // Helper method to convert the date to dd/MM/yyyy
         private String formatDate(String inputDate) {
             try {
                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
